@@ -6,6 +6,18 @@
 
 ## 설치 및 실행
 
+### 개발 환경
+
+#### 환경 변수 설정
+
+```bash
+# .env
+NOTION_TOKEN=NOTION_TOKEN
+NOTION_DATABASE_ID=NOTION_DATABASE_ID
+```
+
+#### 실행
+
 ```bash
 npm run start # 개발 실행 (Hot Reload 지원)
 npm run package # 앱 패키징 (배포용 설치프로그램 X)
