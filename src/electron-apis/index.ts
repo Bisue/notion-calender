@@ -6,6 +6,9 @@ const electronApis = {
   async getCalender() {
     return (await ipcRenderer.invoke('getCalender')) as CalenderList;
   },
+  async submitNotionInfo({ key, databaseId }: { key: string; databaseId: string }) {
+    return await ipcRenderer.invoke('submitNotionInfo', { key, databaseId });
+  },
 };
 
 export type ElectronApis = typeof electronApis;

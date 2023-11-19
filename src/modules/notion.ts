@@ -12,12 +12,20 @@ export interface CalenderItem {
 
 export type CalenderList = Record<string, CalenderItem[]>;
 
-const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
+const info: { key?: string; databaseId?: string } = {};
+
+async function setNotionInfo({ key, databaseId }: { key: string; databaseId: string }) {
+  info.key = key;
+  info.databaseId = databaseId;
+}
 
 async function getCalenderList() {
-  const databaseId = process.env.NOTION_DATABASE_ID;
+  if (!info.databaseId || !info.key) throw Error('Notion database id or key is not set.');
+
+  const notion = new Client({
+    auth: info.key,
+  });
+  const databaseId = info.databaseId;
 
   const { results } = await notion.databases.query({
     database_id: databaseId,
@@ -67,4 +75,4 @@ async function getCalenderList() {
   }, {});
 }
 
-export { getCalenderList };
+export { setNotionInfo, getCalenderList };

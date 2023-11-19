@@ -110,7 +110,7 @@ function Calender() {
         <div className="text-center font-bold text-2xl text-white mb-5 tracking-wider">
           {firstDayOfMonth.year()}-{firstDayOfMonth.month() + 1}
           <button className="inline-flex justify-center items-center h-8 w-8 bg-blue-500 text-white ml-3" onClick={getCalenderList}>
-            {loading ? (<Spinner></Spinner>) : <Refresh></Refresh>}
+            {loading ? <Spinner></Spinner> : <Refresh></Refresh>}
           </button>
         </div>
       )}
