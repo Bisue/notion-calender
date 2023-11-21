@@ -1,16 +1,16 @@
 import type { FC } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import NotFound from '@/pages/NotFound';
-import Calender from '@/pages/Calender';
-import Setting from '@/pages/Setting';
+import NotFoundPage from '@/pages/NotFoundPage';
+import CalenderPage from '@/pages/CalenderPage';
+import SettingPage from '@/pages/SettingPage';
 
 const App: FC = () => {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" Component={Setting}></Route>
-        <Route path="/calender" Component={Calender}></Route>
-        <Route path="/*" Component={NotFound}></Route>
+        <Route path="/" Component={SettingPage}></Route>
+        <Route path="/calender" Component={CalenderPage}></Route>
+        <Route path="/*" Component={NotFoundPage}></Route>
       </Routes>
     </HashRouter>
   );

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import './Calender.css';
+import './CalenderPage.css';
 import dayjs from 'dayjs';
 import type { CalenderList } from '@/modules/notion';
 import Spinner from '@/components/icons/Spinner';
@@ -36,7 +36,7 @@ function buildCalenderDates(today: dayjs.Dayjs) {
   };
 }
 
-const Calender: FC = () => {
+const CalenderPage: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [calenders, setCalenders] = useState<CalenderList | null>(null);
 
@@ -83,4 +83,4 @@ const Calender: FC = () => {
   );
 };
 
-export default Calender;
+export default CalenderPage;
