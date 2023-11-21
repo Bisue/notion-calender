@@ -1,15 +1,15 @@
-import { CalenderItem } from '@/modules/notion';
-import dayjs from 'dayjs';
-import React from 'react';
+import type { CalenderItem } from '@/modules/notion';
+import type { Dayjs } from 'dayjs';
+import type { FC } from 'react';
 
 export interface CalenderCellProps {
-  date: dayjs.Dayjs;
+  date: Dayjs;
   thisMonth: boolean;
   today: boolean;
   todos: CalenderItem[];
 }
 
-const CalenderCell: React.FC<CalenderCellProps> = ({ date, thisMonth, today, todos }) => {
+const CalenderCell: FC<CalenderCellProps> = ({ date, thisMonth, today, todos }) => {
   const classNames: Record<string, boolean> = {
     'h-32': true,
     'bg-white': true,

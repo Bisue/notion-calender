@@ -1,4 +1,6 @@
-export default function Refresh() {
+import type { FC } from 'react';
+
+const Refresh: FC = () => {
   return (
     <svg fill="#ffffff" height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489.698 489.698">
       <g>
@@ -17,4 +19,6 @@ export default function Refresh() {
       </g>
     </svg>
   );
-}
+};
+
+export default Refresh;

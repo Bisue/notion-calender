@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import './Calender.css';
 import dayjs from 'dayjs';
 import type { CalenderList } from '@/modules/notion';
@@ -35,7 +36,7 @@ function buildCalenderDates(today: dayjs.Dayjs) {
   };
 }
 
-const Calender: React.FC = () => {
+const Calender: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [calenders, setCalenders] = useState<CalenderList | null>(null);
 

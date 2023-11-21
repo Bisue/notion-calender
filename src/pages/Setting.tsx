@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Setting() {
+const Setting: FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const notionTokenRef = useRef<HTMLInputElement>(null);
@@ -49,4 +49,6 @@ export default function Setting() {
       </div>
     </main>
   );
-}
+};
+
+export default Setting;
