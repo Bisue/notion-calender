@@ -11,9 +11,9 @@
     "plugin:import/recommended",
     "plugin:import/electron",
     "plugin:import/typescript",
-    "import",
     "prettier"
   ],
+  "plugins": ["import"],
   "parser": "@typescript-eslint/parser",
   "settings": {
     "import/parsers": {
@@ -24,6 +24,7 @@
     }
   },
   "rules": {
-    "import/no-unresolved": "error"
+    "import/no-unresolved": "error",
+    "@typescript-eslint/consistent-type-imports": "error"
   }
 }
