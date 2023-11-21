@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './Calender.css';
 import dayjs from 'dayjs';
-import type { CalenderList } from '../modules/notion';
-import Spinner from '../components/icons/Spinner';
-import Refresh from '../components/icons/Refresh';
+import type { CalenderList } from '@/modules/notion';
+import Spinner from '@/components/icons/Spinner';
+import Refresh from '@/components/icons/Refresh';
 
 interface DayItem {
   key: string;

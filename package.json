@@ -1,11 +1,11 @@
 {
-  "name": "personal-study-electorn",
-  "productName": "personal-study-electorn",
+  "name": "notion-calender",
+  "productName": "Notion 캘린더",
   "version": "0.0.1",
-  "description": "Let's study electron!",
+  "description": "Notion 일정 데이터베이스 기반 캘린더 위젯",
   "main": ".webpack/main",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "chcp 65001 && electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -36,6 +36,7 @@
     "electron": "27.0.4",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.0",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
     "node-loader": "^2.0.0",

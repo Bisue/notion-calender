@@ -11,7 +11,19 @@
     "plugin:import/recommended",
     "plugin:import/electron",
     "plugin:import/typescript",
+    "import",
     "prettier"
   ],
-  "parser": "@typescript-eslint/parser"
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "rules": {
+    "import/no-unresolved": "error"
+  }
 }

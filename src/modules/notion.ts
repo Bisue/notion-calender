@@ -1,5 +1,20 @@
 import { Client } from '@notionhq/client';
 import dayjs from 'dayjs';
+import { app } from 'electron';
+import path from 'path';
+import fs from 'fs';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
+export interface NotionConfig {
+  /**
+   * Notion integration key
+   */
+  key: string;
+  /**
+   * Target calender's notion database id
+   */
+  databaseId: string;
+}
 
 export interface CalenderItem {
   id: string;
@@ -12,67 +27,124 @@ export interface CalenderItem {
 
 export type CalenderList = Record<string, CalenderItem[]>;
 
-const info: { key?: string; databaseId?: string } = {};
-
-async function setNotionInfo({ key, databaseId }: { key: string; databaseId: string }) {
-  info.key = key;
-  info.databaseId = databaseId;
+export class NotionPropertyError extends Error {
+  constructor(property: string, expectedType: PageObjectResponse['properties'][string]['type'], actualType: PageObjectResponse['properties'][string]['type']) {
+    const actualMessage = actualType === undefined ? '존재하지 않습니다.' : `"${actualType}" 입니다.`;
+    super(`"${property}" 속성은 "${expectedType}" 타입이어야 하지만 ${actualMessage}`);
+    this.name = 'NotionPropertyError';
+  }
 }
 
-async function getCalenderList() {
-  if (!info.databaseId || !info.key) throw Error('Notion database id or key is not set.');
+const configPath = path.resolve(app.getPath('userData'), 'config.json');
 
-  const notion = new Client({
-    auth: info.key,
+function loadConfig() {
+  return new Promise<NotionConfig>((resolve, reject) => {
+    fs.readFile(configPath, { encoding: 'utf-8' }, (e, json) => {
+      if (e) reject(e);
+      else resolve(JSON.parse(json));
+    });
   });
-  const databaseId = info.databaseId;
+}
 
-  const { results } = await notion.databases.query({
-    database_id: databaseId,
-    filter: {
-      // and: [
-      // {
-      property: '진행률',
-      number: {
-        less_than: 1,
+function saveConfig(config: NotionConfig) {
+  return new Promise<void>((resolve, reject) => {
+    fs.writeFile(configPath, JSON.stringify(config), { encoding: 'utf-8' }, e => {
+      if (e) reject(e);
+      else resolve();
+    });
+  });
+}
+
+class NotionCalender {
+  config: NotionConfig = null;
+  client: Client;
+
+  init({ key, databaseId }: NotionConfig) {
+    this.config = { key, databaseId };
+    saveConfig(this.config);
+
+    this.client = new Client({
+      auth: key,
+    });
+  }
+
+  async load() {
+    this.init(await loadConfig());
+  }
+
+  get initialized() {
+    return this.config !== null;
+  }
+
+  async fetch() {
+    if (!this.initialized) throw Error('initialize first.');
+
+    const { results } = await this.client.databases.query({
+      database_id: this.config.databaseId,
+      filter: {
+        // and: [
+        // {
+        property: '진행률',
+        number: {
+          less_than: 1,
+        },
+        // },
+        //   {
+        //     property: '날짜',
+        //     date: {
+        //       after: new Date().toISOString(),
+        //     },
+        //   },
+        // ],
       },
-      // },
-      //   {
-      //     property: '날짜',
-      //     date: {
-      //       after: new Date().toISOString(),
-      //     },
-      //   },
-      // ],
-    },
-  });
+    });
 
-  const calenders: CalenderItem[] = results.map(page => {
-    const { id, properties, url } = page as { id: string; properties: Record<string, any>; url: string };
+    const calenders: CalenderItem[] = results.map(page => {
+      const { id, properties, url } = page as PageObjectResponse;
 
-    const title: string = properties['이름'].title.reduce((acc: string, cur: { plain_text: string }) => acc + cur.plain_text, '');
+      if (properties['이름']?.type !== 'title') throw new NotionPropertyError('이름', 'title', properties['이름']?.type);
+      if (properties['날짜']?.type !== 'date') throw new NotionPropertyError('날짜', 'date', properties['날짜']?.type);
+      if (properties['진행률']?.type !== 'number') throw new NotionPropertyError('진행률', 'number', properties['진행률']?.type);
+      if (properties['분류']?.type !== 'select') throw new NotionPropertyError('분류', 'select', properties['분류']?.type);
 
-    return {
-      id,
-      title,
-      url,
-      date: dayjs(properties['날짜'].date.start),
-      progress: properties['진행률'].number,
-      category: properties['분류'].select.name,
-    };
-  });
+      const title = properties['이름'].title.reduce((acc, cur) => acc + cur.plain_text, '');
+      const date = dayjs(properties['날짜'].date.start);
+      const progress = properties['진행률'].number;
+      const category = properties['분류'].select.name;
 
-  return calenders.reduce((acc: CalenderList, cur: CalenderItem) => {
-    const key = cur.date.format('YYYY-MM-DD');
+      return {
+        id,
+        title,
+        url,
+        date,
+        progress,
+        category,
+      };
+    });
 
-    if (!(key in acc)) {
-      acc[key] = [];
-    }
+    return calenders.reduce((acc: CalenderList, cur) => {
+      const key = cur.date.format('YYYY-MM-DD');
 
-    acc[key].push(cur);
+      if (!(key in acc)) {
+        acc[key] = [];
+      }
 
-    return acc;
-  }, {});
+      acc[key].push(cur);
+
+      return acc;
+    }, {});
+  }
 }
 
-export { setNotionInfo, getCalenderList };
+/**
+ * Singleton(using Module Caching)
+ * https://nodejs.org/api/modules.html#modules_caching
+ */
+
+/**
+ * Notion Calender 모듈
+
+ * load ( -> init ) -> fetch
+ */
+const instance = new NotionCalender();
+export default instance;

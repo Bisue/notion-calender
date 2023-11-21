@@ -1,8 +1,8 @@
 import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import NotFound from './pages/NotFound';
-import Calender from './pages/Calender';
-import Setting from './pages/Setting';
+import NotFound from '@/pages/NotFound';
+import Calender from '@/pages/Calender';
+import Setting from '@/pages/Setting';
 
 export default function App() {
   return (
