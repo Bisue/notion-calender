@@ -1,8 +1,8 @@
-import { Client } from '@notionhq/client';
-import dayjs from 'dayjs';
 import { app } from 'electron';
 import path from 'path';
 import fs from 'fs';
+import dayjs from 'dayjs';
+import { Client } from '@notionhq/client';
 import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export interface NotionConfig {
