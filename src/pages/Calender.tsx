@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import type { CalenderList } from '@/modules/notion';
 import Spinner from '@/components/icons/Spinner';
 import Refresh from '@/components/icons/Refresh';
-import CalenderCell from '@/components/icons/calender/CalenderCell';
+import CalenderCell from '@/components/calender/CalenderCell';
 
 interface DayItem {
   key: string;
