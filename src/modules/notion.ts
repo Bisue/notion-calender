@@ -23,6 +23,7 @@ export interface CalenderItem {
   date: dayjs.Dayjs;
   progress: number;
   category: string;
+  color: string;
 }
 
 export type CalenderList = Record<string, CalenderItem[]>;
@@ -53,6 +54,23 @@ function saveConfig(config: NotionConfig) {
       else resolve();
     });
   });
+}
+
+function getTypeColors(color: 'default' | 'gray' | 'brown' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple' | 'pink' | 'red') {
+  const colors: Record<typeof color, string> = {
+    default: '#64748b',
+    gray: '#6b7280',
+    brown: '#422006',
+    orange: '#f97316',
+    yellow: '#eab308',
+    green: '#22c55e',
+    blue: '#3b82f6',
+    purple: '#a855f7',
+    pink: '#ec4899',
+    red: '#ef4444',
+  };
+
+  return colors[color];
 }
 
 class NotionCalender {
@@ -111,6 +129,7 @@ class NotionCalender {
       const date = dayjs(properties['날짜'].date.start);
       const progress = properties['진행률'].number;
       const category = properties['분류'].select.name;
+      const color = getTypeColors(properties['분류'].select.color);
 
       return {
         id,
@@ -119,6 +138,7 @@ class NotionCalender {
         date,
         progress,
         category,
+        color,
       };
     });
 

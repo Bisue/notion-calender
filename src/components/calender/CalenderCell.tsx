@@ -60,7 +60,11 @@ const CalenderCell: FC<CalenderCellProps> = ({ date, thisMonth, today, todos }) 
             <div className="text-xs font-bold w-full overflow-hidden text-ellipsis whitespace-nowrap transition-colors group-hover:text-blue-700">
               {calender.title}
             </div>
-            <div className="text-xs">{calender.category}</div>
+            <div className="text-xs">
+              <span className="inline-block text-white font-bold my-1 rounded p-1" style={{ backgroundColor: calender.color }}>
+                {calender.category}
+              </span>
+            </div>
             <div className="text-xs text-blue-700">{calender.progress * 100}%</div>
           </a>
         ))}
