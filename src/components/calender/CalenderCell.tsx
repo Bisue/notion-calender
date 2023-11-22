@@ -65,6 +65,9 @@ const CalenderCell: FC<CalenderCellProps> = ({ date, thisMonth, today, todos }) 
                 {calender.category}
               </span>
             </div>
+            <div className="rounded-full h-2 bg-gray-500 bg-opacity-50">
+              <div className="rounded-full h-full bg-blue-700 bg-opacity-50" style={{ width: `${calender.progress * 100}%` }}></div>
+            </div>
             <div className="text-xs text-blue-700">{calender.progress * 100}%</div>
           </a>
         ))}
