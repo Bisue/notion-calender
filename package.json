@@ -11,7 +11,7 @@
     "publish": "electron-forge publish",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.tsx . --fix",
-    "lint:prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+    "lint:prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\""
   },
   "keywords": [],
   "author": {
@@ -39,12 +39,12 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-tailwindcss": "^3.13.0",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
     "node-loader": "^2.0.0",
     "postcss": "^8.4.31",
     "postcss-loader": "^7.3.3",
     "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.7",
     "style-loader": "^3.3.3",
     "tailwindcss": "^3.3.5",
     "ts-loader": "^9.5.1",
