@@ -1,6 +1,6 @@
 {
   "name": "notion-calender",
-  "productName": "Notion 캘린더",
+  "productName": "Notion Calender",
   "version": "0.0.1",
   "description": "Notion 일정 데이터베이스 기반 캘린더 위젯",
   "main": ".webpack/main",
