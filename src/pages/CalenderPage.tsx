@@ -66,14 +66,14 @@ const CalenderPage: FC = () => {
 
   return (
     <div className="p-5">
-      <div className="text-center font-bold text-2xl text-white mb-5 tracking-wider">
+      <div className="mb-5 text-center text-2xl font-bold tracking-wider text-white">
         {firstDayOfMonth.year()}-{firstDayOfMonth.month() + 1}
-        <button className="inline-flex justify-center items-center h-8 w-8 bg-blue-500 text-white ml-3" onClick={getCalenderList}>
+        <button className="ml-3 inline-flex h-8 w-8 items-center justify-center bg-blue-500 text-white" onClick={getCalenderList}>
           {loading ? <Spinner></Spinner> : <Refresh></Refresh>}
         </button>
       </div>
       {calenders != null && (
-        <div className="grid grid-cols-7 gap-2 justify-center text-white">
+        <div className="grid grid-cols-7 justify-center gap-2 text-white">
           {days.map(day => (
             <CalenderCell key={day.key} date={day.dayjs} thisMonth={day.thisMonth} today={day.today} todos={day.key in calenders ? calenders[day.key] : []} />
           ))}

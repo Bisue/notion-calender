@@ -48,25 +48,19 @@ const CalenderCell: FC<CalenderCellProps> = ({ date, thisMonth, today, todos }) 
   return (
     <div className={className}>
       <div className="flex items-baseline">
-        {today ? <span className="text-xs bg-orange-700 text-white py-1 px-2 rounded-full ml-1">{displayDate}</span> : <span>{displayDate}</span>}
+        {today ? <span className="ml-1 rounded-full bg-orange-700 px-2 py-1 text-xs text-white">{displayDate}</span> : <span>{displayDate}</span>}
       </div>
-      <div className="font-normal text-black flex-grow overflow-y-auto">
+      <div className="grow overflow-y-auto font-normal text-black">
         {todos.map((calender, index) => (
-          <a
-            key={index}
-            href={calender.url.replace('https', 'notion')}
-            className="block group mb-2 p-1 transition-colors rounded-lg hover:bg-opacity-50 hover:bg-white"
-          >
-            <div className="text-xs font-bold w-full overflow-hidden text-ellipsis whitespace-nowrap transition-colors group-hover:text-blue-700">
-              {calender.title}
-            </div>
+          <a key={index} href={calender.url.replace('https', 'notion')} className="group mb-2 block rounded-lg p-1 transition-colors hover:bg-white/50">
+            <div className="w-full truncate text-xs font-bold transition-colors group-hover:text-blue-700">{calender.title}</div>
             <div className="text-xs">
-              <span className="inline-block text-white font-bold my-1 rounded p-1" style={{ backgroundColor: calender.color }}>
+              <span className="my-1 inline-block rounded p-1 font-bold text-white" style={{ backgroundColor: calender.color }}>
                 {calender.category}
               </span>
             </div>
-            <div className="rounded-full h-2 bg-gray-500 bg-opacity-50">
-              <div className="rounded-full h-full bg-blue-700 bg-opacity-50" style={{ width: `${calender.progress * 100}%` }}></div>
+            <div className="h-2 rounded-full bg-gray-500/50">
+              <div className="h-full rounded-full bg-blue-700/50" style={{ width: `${calender.progress * 100}%` }}></div>
             </div>
             <div className="text-xs text-blue-700">{calender.progress * 100}%</div>
           </a>

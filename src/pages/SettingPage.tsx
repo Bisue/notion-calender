@@ -26,22 +26,22 @@ const SettingPage: FC = () => {
   }
 
   return (
-    <main className="h-screen w-full flex justify-center items-center">
-      <div className="bg-white rounded max-w-lg w-full flex flex-col justify-center items-center p-3">
-        <h1 className="text-3xl mb-3">초기 설정</h1>
+    <main className="flex h-screen w-full items-center justify-center">
+      <div className="flex w-full max-w-lg flex-col items-center justify-center rounded bg-white p-3">
+        <h1 className="mb-3 text-3xl">초기 설정</h1>
         {loading ? (
           <div>로딩 중..</div>
         ) : (
-          <div className="flex flex-col justify-center items-center">
-            <label className="font-bold text-xl">Notion API 키</label>
-            <input ref={notionTokenRef} type="text" className="border-2 rounded-md" />
+          <div className="flex flex-col items-center justify-center">
+            <label className="text-xl font-bold">Notion API 키</label>
+            <input ref={notionTokenRef} type="text" className="rounded-md border-2" />
 
             {/* Notion database id input */}
-            <label className="font-bold text-xl">Notion 데이터베이스 ID</label>
-            <input ref={notionDatabaseIdRef} type="text" className="border-2 rounded-md" />
+            <label className="text-xl font-bold">Notion 데이터베이스 ID</label>
+            <input ref={notionDatabaseIdRef} type="text" className="rounded-md border-2" />
 
             {/* submit button */}
-            <button onClick={submit} className="font-bold border-2 rounded-md">
+            <button onClick={submit} className="rounded-md border-2 font-bold">
               설정
             </button>
           </div>
