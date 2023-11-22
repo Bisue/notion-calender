@@ -60,7 +60,7 @@ const CalenderPage: FC = () => {
     getCalenderList();
     const intervalId = setInterval(() => {
       getCalenderList();
-    }, 60000);
+    }, 10000);
     return () => clearInterval(intervalId);
   }, []);
 
