@@ -1,0 +1,25 @@
+.calender-cell {
+  @apply flex h-32 flex-col rounded bg-white px-2 py-2 font-bold;
+}
+
+.calender-cell:not(.this-month) {
+  @apply bg-opacity-25;
+}
+
+.calender-cell.this-month {
+  @apply bg-opacity-50;
+}
+
+.caledner-cell:not(.sun):not(.sat) {
+  @apply text-black;
+}
+
+.calender-cell.sun {
+  @apply text-red-700;
+}
+
+.calender-cell.sat {
+  @apply text-blue-600;
+}
+
+/

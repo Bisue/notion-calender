@@ -1,6 +1,7 @@
 import type { CalenderItem } from '@/modules/notion';
 import type { Dayjs } from 'dayjs';
 import type { FC } from 'react';
+import './CalenderCell.css';
 
 export interface CalenderCellProps {
   date: Dayjs;
@@ -10,38 +11,10 @@ export interface CalenderCellProps {
 }
 
 const CalenderCell: FC<CalenderCellProps> = ({ date, thisMonth, today, todos }) => {
-  const classNames: Record<string, boolean> = {
-    'h-32': true,
-    'bg-white': true,
-    'bg-opacity-50': true,
-    rounded: true,
-    'py-2': true,
-    'px-2': true,
-    'text-black': true,
-    'font-bold': true,
-    flex: true,
-    'flex-col': true,
-  };
-
-  if (!thisMonth) {
-    classNames['bg-opacity-50'] = false;
-
-    classNames['bg-opacity-25'] = true;
-  }
-
-  if (date.day() === 0) {
-    classNames['text-black'] = false;
-
-    classNames['text-red-700'] = true;
-  } else if (date.day() === 6) {
-    classNames['text-black'] = false;
-
-    classNames['text-blue-600'] = true;
-  }
-
-  const className = Object.keys(classNames)
-    .filter(key => classNames[key])
-    .join(' ');
+  let className = 'calender-cell';
+  if (thisMonth) className += ' this-month';
+  if (date.day() === 0) className += ' sun';
+  else if (date.day() === 6) className += ' sat';
 
   const displayDate = date.format('DD');
 
