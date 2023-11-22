@@ -58,16 +58,16 @@ function saveConfig(config: NotionConfig) {
 
 function getTypeColors(color: 'default' | 'gray' | 'brown' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple' | 'pink' | 'red') {
   const colors: Record<typeof color, string> = {
-    default: '#64748b',
-    gray: '#6b7280',
-    brown: '#422006',
-    orange: '#f97316',
-    yellow: '#eab308',
-    green: '#22c55e',
-    blue: '#3b82f6',
-    purple: '#a855f7',
-    pink: '#ec4899',
-    red: '#ef4444',
+    default: '#64748b7d',
+    gray: '#6b72807d',
+    brown: '#4220067d',
+    orange: '#f973167d',
+    yellow: '#eab3087d',
+    green: '#22c55e7d',
+    blue: '#3b82f67d',
+    purple: '#a855f77d',
+    pink: '#ec48997d',
+    red: '#ef44447d',
   };
 
   return colors[color];
